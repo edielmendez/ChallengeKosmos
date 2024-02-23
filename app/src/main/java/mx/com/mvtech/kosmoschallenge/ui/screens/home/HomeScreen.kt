@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ import mx.com.mvtech.kosmoschallenge.domain.models.CharacterModel
 import mx.com.mvtech.kosmoschallenge.ui.designsystem.CustomLoader
 import mx.com.mvtech.kosmoschallenge.ui.designsystem.DefaultTopAppBar
 import mx.com.mvtech.kosmoschallenge.ui.designsystem.EmptyResults
+import mx.com.mvtech.kosmoschallenge.ui.screens.home.components.CharactersList
 import mx.com.mvtech.kosmoschallenge.ui.theme.KosmosChallengeTheme
 
 @Composable
@@ -25,8 +27,11 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ){
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     val context = LocalContext.current
+
+    LaunchedEffect(Unit){
+        viewModel.onEvent(HomeScreenEvent.FetchCharacters)
+    }
 
     HomeScreenContent(
         isLoading = uiState.isLoading,
@@ -62,12 +67,12 @@ fun HomeScreenContent(
             ) {
 
                 if(characters.isNotEmpty()){
-                    /*CharactersList(
-                        news = characters,
-                        onItemClick = { news ->
-                            onNewItemClick(news)
+                    CharactersList(
+                        characters = characters,
+                        onItemClick = { item ->
+
                         }
-                    )*/
+                    )
                 }else{
                     EmptyResults(
                         message = "RESULTADOS NO ENCONTRADOS"

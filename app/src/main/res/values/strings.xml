@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KosmosChallenge</string>
+    <string name="status_label">Status</string>
+    <string name="specie_label">Especie</string>
+    <string name="type_label">Tipo</string>
+    <string name="gender_label">Genero</string>
+    <string name="origin_label">Origen</string>
+    <string name="location_label">Localización</string>
 </resources>
